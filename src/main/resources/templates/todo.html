@@ -1,21 +1,25 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
 <body>
     <h2>Todo app</h2>
-
-    <a th:unless="${todoItemForm.done}" th:href="@{/?isDone=true}">完了したアイテムの表示</a>
-    <a th:if="${todoItemForm.done}" th:href="@{/?isDone=false}">TODOの表示</a>
+    <p th:inline="text">login user: [[${#httpServletRequest.remoteUser}]]</p>
+    <form th:action="@{/logout}" method="post">
+        <input type="submit" value="Sign Out" />
+    </form>
+    <a th:unless="${todoItemForm.done}" th:href="@{/todo?isDone=true}">完了したアイテムの表示</a>
+    <a th:if="${todoItemForm.done}" th:href="@{/todo?isDone=false}">TODOの表示</a>
 
     <hr />
 
     <h3>TODOの追加</h3>
     <form method="post" th:action="@{/new}">
         <input type="text" name="title" />
-        <input type="submit" value="追加">
+        <input type="submit" value="追加" />
     </form>
 
     <h3>TODOリスト</h3>
@@ -23,7 +27,12 @@
         <thead>
             <tr>
                 <th>Title</th>
-                <th></th>
+                <th>
+                    <form th:if="${todoItemForm.done}" method="post" th:action="@{/deleteAll}">
+                        <input type="hidden" name="done" th:value="true" />
+                        <input type="submit" value="DeleteAll" />
+                    </form>
+                </th>
             </tr>
         <tbody>
             <tr th:each="todoItem : ${todoItemForm.todoItems}">

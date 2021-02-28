@@ -4,6 +4,11 @@ import java.util.List;
 
 import nyata.todoapp.entities.TodoItem;
 
+/**
+ * Todoのフォーム
+ * @author yata1
+ *
+ */
 public class TodoItemForm {
     private boolean isDone;
     private List<TodoItem> todoItems;

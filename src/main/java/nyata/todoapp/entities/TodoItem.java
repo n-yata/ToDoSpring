@@ -6,18 +6,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+/**
+ * Todoリストのエンティティ
+ * @author yata1
+ *
+ */
 @Entity
 @Table(name = "todoitems")
 public class TodoItem {
+    /* id */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY, generator = "todoitems_id_seq")
-    /* id */
     private Long id;
     /* タスク名 */
     private String title;
     /* 完了済判定フラグ */
     private Boolean done;
 
+    /**
+     * getter/setter
+     */
     public Long getId() {
         return id;
     }
