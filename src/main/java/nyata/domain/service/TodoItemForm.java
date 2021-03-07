@@ -1,4 +1,4 @@
-package nyata.domain.form;
+package nyata.domain.service;
 
 import java.util.List;
 

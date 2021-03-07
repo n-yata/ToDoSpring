@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import nyata.domain.form.TodoItemForm;
 import nyata.domain.model.TodoItem;
 import nyata.domain.repositoriy.TodoItemRepository;
+import nyata.domain.service.TodoItemForm;
 
 /**
  * Todo画面のコントローラー
