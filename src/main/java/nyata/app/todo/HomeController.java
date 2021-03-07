@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import nyata.domain.model.TodoItem;
 import nyata.domain.repositoriy.TodoItemRepository;
 import nyata.domain.service.TodoItemForm;
+import nyata.domain.service.TodoUserDetails;
 
 /**
  * Todo画面のコントローラー
@@ -26,9 +28,9 @@ public class HomeController {
     TodoItemRepository repository;
 
     @RequestMapping(value =  "/todo", method = RequestMethod.GET)
-    public String todo(@ModelAttribute TodoItemForm todoItemForm, @RequestParam("isDone") Optional<Boolean> isDone) {
+    public String todo(@ModelAttribute TodoItemForm todoItemForm, @RequestParam("isDone") Optional<Boolean> isDone, @AuthenticationPrincipal TodoUserDetails userDetails) {
         todoItemForm.setDone(isDone.isPresent() ? isDone.get() : false);
-        todoItemForm.setTodoItems(this.repository.findByDoneOrderByTododateAsc(todoItemForm.isDone()));
+        todoItemForm.setTodoItems(this.repository.findByDoneAndUserOrderByTitleAsc(todoItemForm.isDone(), userDetails.getUser()));
         return "/todo";
     }
 
@@ -41,8 +43,8 @@ public class HomeController {
     }
 
     @RequestMapping(value = "/doneAll", method = RequestMethod.POST)
-    public String doneAll(@ModelAttribute TodoItemForm todoItemForm) {
-        todoItemForm.setTodoItems(this.repository.findByDoneOrderByTododateAsc(false));
+    public String doneAll(@ModelAttribute TodoItemForm todoItemForm, @AuthenticationPrincipal TodoUserDetails userDetails) {
+        todoItemForm.setTodoItems(this.repository.findByDoneAndUserOrderByTitleAsc(false, userDetails.getUser()));
         for(TodoItem todoitem : todoItemForm.getTodoItems()) {
             todoitem.setDone(true);
             this.repository.save(todoitem);
@@ -66,15 +68,16 @@ public class HomeController {
 
     @RequestMapping(value="/deleteAll", method = RequestMethod.POST)
     @Transactional
-    public String deleteAll(@RequestParam("done") boolean done) {
-        this.repository.deleteByDone(done);
+    public String deleteAll(@RequestParam("done") boolean done, @AuthenticationPrincipal TodoUserDetails userDetails) {
+        this.repository.deleteByDoneAndUser(done, userDetails.getUser());
         return "redirect:/todo?isDone=true";
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.POST)
-    public String newItem(TodoItem item) {
+    public String newItem(TodoItem item, @AuthenticationPrincipal TodoUserDetails userDetails) {
         item.setDone(false);
         item.setTododate(LocalDateTime.now());
+        item.setUser(userDetails.getUser());
         this.repository.save(item);
         return "redirect:/todo";
     }
