@@ -1,10 +1,10 @@
-package nyata.todoapp.repositories;
+package nyata.domain.repositoriy;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import nyata.todoapp.entities.TodoItem;
+import nyata.domain.model.TodoItem;
 
 /**
  * Todoのレポジトリ

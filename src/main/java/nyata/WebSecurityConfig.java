@@ -1,4 +1,4 @@
-package nyata.todoapp.security;
+package nyata;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package nyata.todoapp.entities;
+package nyata.domain.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,8 +1,8 @@
-package nyata.todoapp.forms;
+package nyata.domain.form;
 
 import java.util.List;
 
-import nyata.todoapp.entities.TodoItem;
+import nyata.domain.model.TodoItem;
 
 /**
  * Todoのフォーム

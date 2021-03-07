@@ -1,4 +1,4 @@
-package nyata.todoapp.controllers;
+package nyata.app.todo;
 
 import java.util.Optional;
 
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import nyata.todoapp.entities.TodoItem;
-import nyata.todoapp.forms.TodoItemForm;
-import nyata.todoapp.repositories.TodoItemRepository;
+import nyata.domain.form.TodoItemForm;
+import nyata.domain.model.TodoItem;
+import nyata.domain.repositoriy.TodoItemRepository;
 
 /**
  * Todo画面のコントローラー
@@ -36,6 +36,15 @@ public class HomeController {
         TodoItem item = this.repository.getOne(id);
         item.setDone(true);
         this.repository.save(item);
+        return "redirect:/todo?isDone=false";
+    }
+
+    @RequestMapping(value = "/doneAll", method = RequestMethod.POST)
+    public String doneAll(@ModelAttribute TodoItemForm todoItemForm) {
+        todoItemForm.setTodoItems(this.repository.findByDoneOrderByTitleAsc(false));
+        for(TodoItem todoitem : todoItemForm.getTodoItems()) {
+            todoitem.setDone(true);
+        }
         return "redirect:/todo?isDone=false";
     }
 

@@ -32,6 +32,9 @@
                         <input type="hidden" name="done" th:value="true" />
                         <input type="submit" value="DeleteAll" />
                     </form>
+                    <form th:unless="${todoItemForm.done}" method="post" th:action="@{/doneAll}">
+                        <input type="submit" value="DoneAll" />
+                    </form>
                 </th>
             </tr>
         <tbody>
