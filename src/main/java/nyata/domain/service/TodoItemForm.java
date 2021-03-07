@@ -3,6 +3,7 @@ package nyata.domain.service;
 import java.util.List;
 
 import nyata.domain.model.TodoItem;
+import nyata.domain.model.User;
 
 /**
  * Todoのフォーム
@@ -10,9 +11,16 @@ import nyata.domain.model.TodoItem;
  *
  */
 public class TodoItemForm {
+    private User user;
     private boolean isDone;
     private List<TodoItem> todoItems;
 
+    public User getUser() {
+        return user;
+    }
+    public void setUser(User user) {
+        this.user = user;
+    }
     public boolean isDone() {
         return isDone;
     }

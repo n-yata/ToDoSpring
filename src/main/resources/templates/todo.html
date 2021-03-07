@@ -7,7 +7,7 @@
 </head>
 <body>
     <h2>Todo app</h2>
-    <p th:inline="text">login user: [[${#httpServletRequest.remoteUser}]]</p>
+    <p th:inline="text">login user: [[${lastName}]] [[${firstName}]]</p>
     <form th:action="@{/logout}" method="post">
         <input type="submit" value="Sign Out" />
     </form>

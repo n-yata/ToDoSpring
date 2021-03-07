@@ -4,9 +4,10 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.web.bind.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,7 +21,6 @@ import nyata.domain.service.TodoUserDetails;
 /**
  * Todo画面のコントローラー
  * @author yata1
- *
  */
 @Controller
 public class HomeController {
@@ -28,9 +28,11 @@ public class HomeController {
     TodoItemRepository repository;
 
     @RequestMapping(value =  "/todo", method = RequestMethod.GET)
-    public String todo(@ModelAttribute TodoItemForm todoItemForm, @RequestParam("isDone") Optional<Boolean> isDone, @AuthenticationPrincipal TodoUserDetails userDetails) {
+    public String todo(@ModelAttribute TodoItemForm todoItemForm, @RequestParam("isDone") Optional<Boolean> isDone, @AuthenticationPrincipal TodoUserDetails userDetails, Model model) {
         todoItemForm.setDone(isDone.isPresent() ? isDone.get() : false);
         todoItemForm.setTodoItems(this.repository.findByDoneAndUserOrderByTitleAsc(todoItemForm.isDone(), userDetails.getUser()));
+        model.addAttribute("firstName", userDetails.getUser().getFirstName());
+        model.addAttribute("lastName", userDetails.getUser().getLastName());
         return "/todo";
     }
 
