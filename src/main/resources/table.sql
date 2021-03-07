@@ -1,0 +1,21 @@
+DROP TABLE IF EXISTS todoitems CASCADE;
+DROP TABLE IF EXISTS usr CASCADE;
+
+CREATE TABLE IF NOT EXISTS todoitems(
+  id SERIAL NOT NULL,
+  title VARCHAR(255),
+  done BOOLEAN,
+  tododate TIMESTAMP NOT NULL,
+  user_id VARCHAR(255) NOT NULL,
+  PRIMARY KEY (id),
+  FOREIGN KEY (user_id) REFERENCES usr
+);
+
+CREATE TABLE IF NOT EXISTS usr(
+  user_id VARCHAR(255) NOT NULL,
+  first_name VARCHAR(255) NOT NULL,
+  last_name VARCHAR(255) NOT NULL,
+  password VARCHAR(255) NOT NULL,
+  role_name VARCHAR(255) NOT NULL,
+  PRIMARY KEY (user_id)
+);
