@@ -1,5 +1,6 @@
 package nyata.app.todo;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class HomeController {
     @RequestMapping(value =  "/todo", method = RequestMethod.GET)
     public String todo(@ModelAttribute TodoItemForm todoItemForm, @RequestParam("isDone") Optional<Boolean> isDone) {
         todoItemForm.setDone(isDone.isPresent() ? isDone.get() : false);
-        todoItemForm.setTodoItems(this.repository.findByDoneOrderByTitleAsc(todoItemForm.isDone()));
+        todoItemForm.setTodoItems(this.repository.findByDoneOrderByTododateAsc(todoItemForm.isDone()));
         return "/todo";
     }
 
@@ -41,9 +42,10 @@ public class HomeController {
 
     @RequestMapping(value = "/doneAll", method = RequestMethod.POST)
     public String doneAll(@ModelAttribute TodoItemForm todoItemForm) {
-        todoItemForm.setTodoItems(this.repository.findByDoneOrderByTitleAsc(false));
+        todoItemForm.setTodoItems(this.repository.findByDoneOrderByTododateAsc(false));
         for(TodoItem todoitem : todoItemForm.getTodoItems()) {
             todoitem.setDone(true);
+            this.repository.save(todoitem);
         }
         return "redirect:/todo?isDone=false";
     }
@@ -72,6 +74,7 @@ public class HomeController {
     @RequestMapping(value = "/new", method = RequestMethod.POST)
     public String newItem(TodoItem item) {
         item.setDone(false);
+        item.setTododate(LocalDateTime.now());
         this.repository.save(item);
         return "redirect:/todo";
     }

@@ -13,5 +13,6 @@ import nyata.domain.model.TodoItem;
  */
 public interface TodoItemRepository extends JpaRepository<TodoItem, Long>{
     public List<TodoItem> findByDoneOrderByTitleAsc(boolean done);
+    public List<TodoItem> findByDoneOrderByTododateAsc(boolean done);
     public long deleteByDone(boolean done);
 }

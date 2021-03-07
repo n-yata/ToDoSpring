@@ -1,5 +1,7 @@
 package nyata.domain.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -22,6 +24,8 @@ public class TodoItem {
     private String title;
     /* 完了済判定フラグ */
     private Boolean done;
+    /* 日付 */
+    private  LocalDateTime tododate;
 
     /**
      * getter/setter
@@ -43,5 +47,11 @@ public class TodoItem {
     }
     public void setDone(Boolean done) {
         this.done = done;
+    }
+    public LocalDateTime getTododate() {
+        return tododate;
+    }
+    public void setTododate(LocalDateTime tododate) {
+        this.tododate = tododate;
     }
 }
