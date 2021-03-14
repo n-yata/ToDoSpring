@@ -11,8 +11,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * Todoリストのエンティティ
- * @author yata1
+ * Todoアイテムのエンティティ
+ * @author nyata
  *
  */
 @Entity
@@ -24,45 +24,52 @@ public class TodoItem {
     private Long id;
     /* タスク名 */
     private String title;
-    /* 完了済判定フラグ */
+    /* 完了判定フラグ */
     private Boolean done;
     /* 日付 */
-    private  LocalDateTime tododate;
+    private LocalDateTime tododate;
     /* ユーザー情報 */
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    /**
-     * getter/setter
-     */
+    // setter, getter
     public Long getId() {
         return id;
     }
+
     public void setId(Long id) {
         this.id = id;
     }
+
     public String getTitle() {
         return title;
     }
+
     public void setTitle(String title) {
         this.title = title;
     }
+
     public Boolean getDone() {
         return done;
     }
+
     public void setDone(Boolean done) {
         this.done = done;
     }
+
     public LocalDateTime getTododate() {
         return tododate;
     }
+
     public void setTododate(LocalDateTime tododate) {
         this.tododate = tododate;
     }
+
     public User getUser() {
         return user;
     }
+
     public void setUser(User user) {
         this.user = user;
     }

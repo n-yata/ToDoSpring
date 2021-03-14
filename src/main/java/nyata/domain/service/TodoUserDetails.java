@@ -8,7 +8,11 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import nyata.domain.model.User;
 
-public class TodoUserDetails implements UserDetails{
+/**
+ * ユーザー認証情報
+ * @author nyata
+ */
+public class TodoUserDetails implements UserDetails {
     private final User user;
 
     public TodoUserDetails(User user) {

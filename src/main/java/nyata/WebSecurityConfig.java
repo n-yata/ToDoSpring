@@ -12,37 +12,41 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import nyata.domain.service.TodoUserDetailsService;
 
+/**
+ * Security Config
+ * @author nyata
+ */
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     TodoUserDetailsService userDetailsService;
 
     @Bean
     PasswordEncoder passwordEncoder() {
-        return new  BCryptPasswordEncoder();
+        return new BCryptPasswordEncoder();
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
         http
-            .authorizeRequests()
-                .antMatchers( "/js/**", "/css/**").permitAll()
+                .authorizeRequests()
+                .antMatchers("/js/**", "/css/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-           .formLogin()
+                .formLogin()
                 .loginPage("/login")
                 .usernameParameter("username")
                 .passwordParameter("password")
                 .defaultSuccessUrl("/todo", true)
                 .permitAll()
                 .and()
-           .logout()
-               .permitAll();
+                .logout()
+                .permitAll();
     }
 
     @Override
-    protected void configure(AuthenticationManagerBuilder auth) throws Exception{
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 }
