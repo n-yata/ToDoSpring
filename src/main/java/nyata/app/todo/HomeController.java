@@ -42,7 +42,7 @@ public class HomeController {
                 this.repository.findByDoneAndUserOrderByTododateAsc(todoItemForm.isDone(), userDetails.getUser()));
         model.addAttribute("firstName", userDetails.getUser().getFirstName());
         model.addAttribute("lastName", userDetails.getUser().getLastName());
-        return "/todo";
+        return "todo";
     }
 
     /**
