@@ -1,0 +1,74 @@
+@charset "UTF-8";
+
+/* すべてのWebページに適用 */
+html {
+	font-family: sans-serif;
+}
+
+html * {
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #e0ffff;
+}
+
+h2 {
+	font-size: 2em;
+	color: #3f5170;
+}
+
+h3 {
+	color: #3f5170;
+}
+
+a:link {
+	color: #d25833;
+}
+
+a:visited {
+	color: #d25833;
+}
+
+a:hover {
+	color: #e3937a;
+}
+
+a:active {
+	color: #ff6a3b;
+}
+
+.title {
+	text-align: center;
+}
+
+.wrapHead {
+	border-bottom: 3px dotted #3f5170;
+	padding-bottom: 10px;
+	text-align: right;
+}
+
+.signOut {
+	margin-left: 20px;
+	margin-right: 3%;
+}
+
+.changeItem {
+	font-size: 1.2em;
+	text-align: center;
+}
+
+.wrapItems {
+	margin-left: 3%;
+}
+
+.msg {
+	color: #ff6a3b;
+	text-align: center;
+	margin-top: 1%;
+	margin-bottom: 1%;
+}
+
+.loginForm {
+	text-align: center;
+}
