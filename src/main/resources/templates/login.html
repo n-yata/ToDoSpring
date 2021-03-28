@@ -4,30 +4,33 @@
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Login Form</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-	<div class="wrapHead">
-		<h2 class="title">Todo Spring App</h2>
-	</div>
-	<div class="wrapItems">
-		<div class="msg">
-			<div th:if="${param.error}">Invalid username and password.</div>
-			<div th:if="${param.logout}">You have been logged out.</div>
+	<div class="wrapper">
+		<div class="wrapHead">
+			<h2 class="title">Todo Spring App</h2>
 		</div>
-		<div class="loginForm">
-			<form th:action="@{/login}" method="post">
-				<div>
-					<label> User Name : <input type="text" name="username" /></label>
-				</div>
-				<div>
-					<label> Password : <input type="password" name="password" /></label>
-				</div>
-				<div>
-					<input type="submit" value="Sign In">
-				</div>
-			</form>
+		<div class="wrapItems">
+			<div class="msg">
+				<div th:if="${param.error}">Invalid username and password.</div>
+				<div th:if="${param.logout}">You have been logged out.</div>
+			</div>
+			<div class="loginForm">
+				<form th:action="@{/login}" method="post">
+					<div class="user">
+						<label> User Name : <input type="text" name="username" /></label>
+					</div>
+					<div class="pass">
+						<label> Password : <input type="password" name="password" /></label>
+					</div>
+					<div>
+						<input type="submit" value="Sign In">
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 </body>

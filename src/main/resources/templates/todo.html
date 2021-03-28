@@ -4,6 +4,7 @@
 	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Todo</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
@@ -26,14 +27,15 @@
 		<div class="wrapItems">
 			<h3>TODOの追加</h3>
 			<form method="post" th:action="@{/new}">
-				<input type="text" name="title" /> <input type="submit" value="追加" />
+				<input type="text" name="title" maxlength="24" /> <input
+					type="submit" value="追加" />
 			</form>
 
 			<h3>TODOリスト</h3>
-			<table>
+			<table class="todoItems">
 				<thead>
 					<tr>
-						<th>Title</th>
+						<th class="todoHead">Title</th>
 						<th>
 							<form th:if="${todoItemForm.done}" method="post"
 								th:action="@{/deleteAll}">
@@ -46,9 +48,10 @@
 							</form>
 						</th>
 					</tr>
+				</thead>
 				<tbody>
 					<tr th:each="todoItem : ${todoItemForm.todoItems}">
-						<td th:text="${todoItem.title}">xxx</td>
+						<td class="todoItem" th:text="${todoItem.title}">xxx</td>
 						<td>
 							<form th:unless="${todoItemForm.done}" method="post"
 								th:action="@{/done}" th:object="${todoItem}">
