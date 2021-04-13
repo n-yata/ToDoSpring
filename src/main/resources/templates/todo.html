@@ -27,6 +27,13 @@
 		</div>
 
 		<div class="wrapItems">
+			<!-- ファイルのアップロードボタンの実装 -->
+			<form method="post" th:action="@{/upload}" enctype="multipart/form-data">
+				<input type="submit" value="ファイルをアップロード">
+				<input type="file" name="upload_file">
+			</form>
+			<p th:text="${file_name}"></p>
+
 			<h3>TODOの追加</h3>
 			<form method="post" th:action="@{/new}">
 				<input type="text" name="title" maxlength="24" /> <input

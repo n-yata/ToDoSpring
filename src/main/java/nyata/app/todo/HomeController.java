@@ -1,5 +1,9 @@
 package nyata.app.todo;
 
+import java.io.BufferedReader;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import nyata.domain.model.TodoItem;
 import nyata.domain.repositoriy.TodoItemRepository;
@@ -118,6 +123,30 @@ public class HomeController {
         item.setTododate(LocalDateTime.now());
         item.setUser(userDetails.getUser());
         this.repository.save(item);
+        return "redirect:/todo";
+    }
+
+    @PostMapping(value = "/upload")
+    public String uploadCsv(@RequestParam("upload_file") MultipartFile uploadFile,
+            @AuthenticationPrincipal TodoUserDetails userDetails) {
+        String line = null;
+        try {
+            InputStream stream = uploadFile.getInputStream();
+            Reader reader = new InputStreamReader(stream);
+            BufferedReader buf = new BufferedReader(reader);
+            while ((line = buf.readLine()) != null) {
+                TodoItem item = new TodoItem();
+                item.setTitle(line);
+                item.setDone(false);
+                item.setTododate(LocalDateTime.now());
+                item.setUser(userDetails.getUser());
+                this.repository.save(item);
+            }
+            line = buf.readLine();
+        } catch (Exception e) {
+            line = "Can't read contents";
+            e.printStackTrace();
+        }
         return "redirect:/todo";
     }
 }
